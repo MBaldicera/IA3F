@@ -5,31 +5,31 @@ const caixaResultado = document.querySelector('.caixa-resultado');
 
 const perguntas = [     //serve para abrir lista de perguntas
     {   //abre o objeto das perguntas
-        enunciado: "Pergunta 1",
+        enunciado: "Você acha que IA vai dominar o mundo?",
         alternativas: [
-            {texto: "Alternativa 1",
-            afirmação:"Afirmação da alternativa 1"}, 
+            {texto: "Sim",
+            afirmação:"A IA vai dominar o mundo"}, 
 
-            {texto: "Alternativa 2",
-            afirmação:"Afirmação da alternativa 2"}]
+            {texto: "Não",
+            afirmação:"A IA não dominará o mundo"}]
     },
     { 
-        enunciado: "Pergunta 2",
+        enunciado: "A IA vai substituir os professores?",
         alternativas: [
-            {texto: "Alternativa 1",
-            afirmação:"Afirmação da alternativa 1"}, 
+            {texto: "Sim",
+            afirmação:"A IA logo tomará o lugar dos professores"}, 
                 
-            {texto: "Alternativa 2",
-            afirmação:"Afirmação da alternativa 2"}]
+            {texto: "Não",
+            afirmação:"A IA jamais tomará o lugar dos professores"}]
     },
     { 
-        enunciado: "Pergunta 3",
+        enunciado: "A IA está pronta para todos?",
         alternativas: [
-            {texto: "Alternativa 1",
-            afirmação:"Afirmação da alternativa 1"}, 
+            {texto: "Sim",
+            afirmação:"Sim, a IA será útil e está pronta para todos"}, 
                 
-            {texto: "Alternativa 2",
-            afirmação:"Afirmação da alternativa 2"}]
+            {texto: "Não",
+            afirmação:"Não, a IA não é para o uso de todos"}]
     },
 ]
 
@@ -38,8 +38,13 @@ let perguntaAtual;
 let historiaFinal = "";
 
 function mostraPergunta(){
+    if (posicao >= perguntas.length){
+        mostraResultado();
+        return;
+    }
     perguntaAtual = perguntas[posicao];
     caixaPerguntas.textContent = perguntaAtual.enunciado;
+    caixaAlternativas.textContent = " ";
     mostraAlternativas();
 }
 function mostraAlternativas(){
@@ -50,12 +55,16 @@ function mostraAlternativas(){
         caixaAlternativas.appendChild(botaoAlternativas);
     }
 }
-
 function respostaSelecionada(opcaoSelecionada){
     const afirmacoes = opcaoSelecionada.afirmação;
-    historiaFinal = afirmacoes;
+    historiaFinal += afirmacoes + " ";
     posicao++;
     mostraPergunta();
+}
+function mostraResultado(){
+    caixaPerguntas.textContent = "Num futuro próximo...";
+    textoResultado.textContent = historiaFinal;
+    caixaAlternativas.textContent = "";
 }
 
 mostraPergunta();
